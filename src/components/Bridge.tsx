@@ -108,7 +108,6 @@ export default function Bridge() {
     // 2. Try explicit object fees (drill down)
     let feeObj = quote.fees?.relayer || quote.fees?.total;
     if (typeof feeObj === 'object' && feeObj !== null) {
-        // Look for amount inside object
         const val = feeObj.amountUsd || feeObj.amount || feeObj.formatted;
         if (val) return parseFloat(val).toFixed(2);
     }
@@ -173,7 +172,6 @@ export default function Bridge() {
             {loading ? (
                 <span className="text-gray-600 animate-pulse">0.00...</span>
             ) : quote ? (
-                // Safe Output Display
                 (Number(quote.details?.currencyOut?.amount || 0) / 1e18).toFixed(4)
             ) : (
                 <span className="text-gray-600">0</span>
@@ -200,7 +198,8 @@ export default function Bridge() {
       {/* Button */}
       <div className="mt-4">
         {!isConnected ? (
-          <div className="w-full [&_button]:!w-full [&_button]:!h-[56px] [&_button]:!rounded-xl [&_button]:!text-lg [&_button]:!font-bold">
+          // Added [&_button]:!flex [&_button]:!justify-center [&_button]:!items-center to center the content
+          <div className="w-full [&_button]:!w-full [&_button]:!h-[56px] [&_button]:!rounded-xl [&_button]:!text-lg [&_button]:!font-bold [&_button]:!flex [&_button]:!justify-center [&_button]:!items-center">
              <ConnectButton />
           </div>
         ) : (
